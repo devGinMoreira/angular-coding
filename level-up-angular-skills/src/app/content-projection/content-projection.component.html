@@ -1,4 +1,39 @@
 <div class="card-grid">
-  <app-card title="FLEX"></app-card>
- 
+  <app-card title="FLEX">
+    <div *appCardMainContent>
+      This is the shorthand for flex-grow, flex-shrink and flex-basis combined.
+      The second and third parameters (flex-shrink and flex-basis) are optional. Default is 0 1 auto.
+    </div>
+
+    <app-card-footer>
+     <button class="btn btn--block card__btn">Button</button>
+   </app-card-footer>
+
+    <app-card-header>
+      Header Content
+    </app-card-header>
+
+
+  </app-card>
+
+  <app-card title="FLEX 2">
+    <ng-template appCardMainContent>
+      This is the shorthand for flex-grow, flex-shrink and flex-basis combined.
+      The second and third parameters (flex-shrink and flex-basis) are optional. Default is 0 1 auto.
+    </ng-template>
+
+    <app-card-footer>
+     <button class="btn btn--block card__btn">Button</button>
+     <button class="btn btn--block card__btn">Button 2</button>
+   </app-card-footer>
+
+    <app-card-header>
+      Header Content 2
+    </app-card-header>
+
+
+  </app-card>
+
+
+
 </div>

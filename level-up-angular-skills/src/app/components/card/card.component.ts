@@ -11,20 +11,20 @@ import {
   selector: 'app-card-footer',
   standalone: true,
 })
-export class CardFooterDirective {}
+export class CardFooterDirective { }
 
 @Directive({
   selector: 'app-card-header',
   standalone: true,
 })
-export class CardHeaderDirective {}
+export class CardHeaderDirective { }
 
 @Directive({
   selector: '[appCardMainContent]',
   standalone: true,
 })
 export class CardContentDirective {
-  constructor(public template: TemplateRef<any>) {}
+  constructor(public template: TemplateRef<any>) { }
 }
 
 @Component({
@@ -33,21 +33,28 @@ export class CardContentDirective {
   imports: [CommonModule],
   template: `
     <!-- https://codepen.io/mcraiganthony/pen/NxGxqm -->
+    <ng-content select="[app-card-header']"></ng-content>
     <div class="card">
       <div class="card__image card__image--fence"></div>
       <div class="card__content">
-        <div class="card__title">{{title}}</div>
+        <div class="card__title">{{ title }}</div>
 
         <!-- Content -->
-        <div class="card__content">This is the shorthand for flex-grow, flex-shrink and flex-basis combined.
-          The second and third parameters (flex-shrink and flex-basis) are optional. Default is 0 1 auto.
+        <div class="card__content">
+          <ng-container
+            *ngIf="cardMainContent"
+            [ngTemplateOutlet]="cardMainContent.template">
+          </ng-container>
         </div>
-         <!-- Content -->
+        <!-- Content -->
 
         <!-- Footer -->
-        <button class="btn btn--block card__btn">Button</button>
-         <!-- Footer -->
+        <ng-content
+          *ngIf="cardMainContent"
+          select="app-card-footer"
+        ></ng-content>
 
+        <!-- Footer -->
       </div>
     </div>
   `,
@@ -55,5 +62,5 @@ export class CardContentDirective {
 })
 export class CardComponent {
   @Input() title?: string;
-  @ContentChild(CardContentDirective) carMainContent?: CardContentDirective;
+  @ContentChild(CardContentDirective) cardMainContent?: CardContentDirective;
 }
